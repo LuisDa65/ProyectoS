@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<html>
+<head>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <content>
+        <div class="row" style="background:#000000; margin-left:0px;margin-right:0px; margin-top:-50px; height:100px">
+            <div class="form-group col-md-2">
+                <img src="~/Resources/logo.png" style="width:250px; height:100px" />
+            </div>
+            <div class="form-group col-md-5 text-lg-right">
+                <h4 style="color:#ffffff; margin-top:30px">Fabricamos la iluminacion de tus ideas</h4>
+            </div>
+            <div class="form-group col-md-5 text-lg-right">
+                <button type="button" class="btn btn-dark" style="margin-top:40px;" data-toggle="modal" data-target="#exampleModal">Usuarios+</button>
+            </div>
+        </div>
+
+        <br />
+        <div class="row" style="margin-left: 0px; margin-right: 0px;">
+            <div class="form-group col-md-6">
+                <h6>Hola mundo</h6>
+            </div>
+            <div class="form-group col-md-6 text-lg-right">
+                <h6>Para atenderle mejor contactanos con lo que mas que convenga:</h6>
+            </div>
+        </div>
+
+        <div class="row" style="margin-left: 0px; margin-right: 0px;">
+            <div class="form-group col-md-6">
+                <img src="~/Resources/imgInicio.jpg" style="width:600px;height:400px" />
+            </div>
+            <div class="form-group col-md-6 text-lg-right">
+                <label class="col-md-2 control-label"> <img src="~/Resources/whatsapp.png" style="width:40px; height:40px" /> 2361142547</label>
+                <label class="col-md-2 control-label"> <img src="~/Resources/office.png" style="width:35px; height:36px;" />  <a href="https://www.google.com/maps/dir/?api=1&destination=18.468486742542%2C-97.39000082016&fbclid=IwAR25ol2GUubVlvfEsfFRnL1H0ztPeUXeXQY-a0x8CGatHfX8CKlSdsERmM" class="stretched-link">Dirección</a></label>
+                <label class="col-md-2 control-label"> <img src="~/Resources/Fcebook.png" style="width:28px; height:33px;" /> <a href="https://www.facebook.com/tecnilightiluminacion" class="stretched-link">Facebook</a></label>
+                <br />
+                <br />
+                <div class="form-group col-md-6 text-lg-right">
+                    <div class="form-group col-md-6 text-lg-right">
+                        <img src="~/Resources/imgInicio.jpg" style="width:400px;height:280px" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </content>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width:420px; height:450px">
+                <div class="modal-header" style="background:#000000">
+                    <h5 class="modal-title" style="margin-left:150px; color:white">Iniciar sesión</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color:white">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <form action="/Login/Index" method="post">
+                                <div class="col-xl-12">
+                                    <input type="text" class="form-control" name="usr" placeholder="Ingrese nombre de usuario" required autofocus style="margin:auto">
+                                    <br />
+                                    <input type="password" class="form-control" name="pwd" placeholder="Ingrese contraseña" required style="margin:auto">
+                                    <br />
+                                    <button class="btn btn-primary" style="margin-left:150px" type="submit">
+                                        Iniciar sesión
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
