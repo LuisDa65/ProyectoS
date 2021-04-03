@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sistema.WebSite.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,14 +17,43 @@ namespace Sistema.WebSite.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string usr, string pwd)
+        public ActionResult Index(Login login)
         {
-            if (usr == "ld" && pwd == "ld")
+            if (ModelState.IsValid)
             {
-                FormsAuthentication.SetAuthCookie("ld", false);
-                return RedirectToAction("Index", "Principal");
+                try
+                {
+                    BL.PermisosHandler permisos = new BL.PermisosHandler();
+                    TL.Usuario usuario = new TL.Usuario();
+                    usuario.Correo = login.Correo;
+                    usuario.Contraseña = login.Password;
+
+                    TL.Usuario Sesion = permisos.IniSesion(usuario);
+
+                    if (Sesion != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(login.Password, false);
+                        Session["Usuario"] =Sesion;
+                        return RedirectToAction("Index", "Principal");
+                    }
+                    else 
+                    {
+                        return View();
+                    }
+
+                    
+                }
+                catch (Exception)
+                {
+
+                    return View();
+                }
+               
             }
-            return View();
+            else
+            {
+                return View();
+            }
         }
     }
 }

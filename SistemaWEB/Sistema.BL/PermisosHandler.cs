@@ -9,13 +9,17 @@ namespace Sistema.BL
 {
     public class PermisosHandler : BLBase
     {
-
-        public Permisos DamePermisos(int IdRol)
+        /// <summary>
+        /// Obtiene lista de permisos del usuario logueado
+        /// </summary>
+        /// <param name="IdRol"></param>
+        /// <returns></returns>
+        public Permisos DamePermisos(Usuario usuario)
         {
             try
             {
                 DAL.PermisosHandler permisosModulos = new DAL.PermisosHandler(connectionString);
-                List<Modulo> modulos = permisosModulos.DameModulos(IdRol);
+                List<Modulo> modulos = permisosModulos.DameModulos(usuario.IdRol);
 
                 Permisos permisos = new Permisos();
                 permisos.Herramienta = 0;
@@ -51,5 +55,27 @@ namespace Sistema.BL
 
 
         }
+
+        /// <summary>
+        /// Validar credenciales del usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public Usuario IniSesion(Usuario usuario)
+        {
+            try
+            {
+                DAL.PermisosHandler permisosHandler = new DAL.PermisosHandler(connectionString);
+                return permisosHandler.IniSesion(usuario);
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog.GuardarError(ex, "Tapp.BL.PlanesHandler.DameActivos", true);
+                throw;
+            }
+        }
+
+
+
     }
 }
