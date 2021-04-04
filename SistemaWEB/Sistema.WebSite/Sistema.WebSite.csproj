@@ -299,6 +299,10 @@
       <Project>{44dcba5c-5006-499b-bbbf-db988e93e6ac}</Project>
       <Name>Sistema.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Sistema.TL\Sistema.TL.csproj">
+      <Project>{e79cbe84-7cc5-4389-9053-aea5d269e987}</Project>
+      <Name>Sistema.TL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

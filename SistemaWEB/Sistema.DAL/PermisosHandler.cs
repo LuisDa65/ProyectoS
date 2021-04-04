@@ -11,15 +11,20 @@ namespace Sistema.DAL
 {
     public class PermisosHandler : DALBase
     {
+
         public PermisosHandler(string connectionString) : base(connectionString)
         {
         }
+        /// <summary>
+        /// Obtiene lista de permisos del usuario logueado
+        /// </summary>
+        /// <param name="IdRol"></param>
+        /// <returns></returns>
         public List<Modulo> DameModulos(int IdRol)
         {
             SqlConnection conn = null;
             SqlDataReader dr = null;
             SqlCommand comm = null;
-
             List<Modulo> modulos = null;
 
             try
@@ -45,7 +50,6 @@ namespace Sistema.DAL
                         });
                     }
                 }
-
                 dr.Close();
                 conn.Close();
 
@@ -53,7 +57,7 @@ namespace Sistema.DAL
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"No se pudo obtener los modulos", ex);
+                throw new ApplicationException("No se pudo obtener los modulos", ex);
             }
             finally
             {
@@ -63,6 +67,63 @@ namespace Sistema.DAL
                 catch { }
                 try { if (conn != null) comm.Dispose(); }
                 catch { }
+            }
+        }
+
+        /// <summary>
+        /// Validar credenciales del usuario
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        public Usuario IniSesion(Usuario usuario)
+        {
+            SqlConnection conn = null;
+            SqlDataReader dr = null;
+            SqlCommand comm = null;
+            Usuario result = null;
+            try
+            {
+                conn = new SqlConnection(this.connectionString);
+                comm = new SqlCommand("SELECT Id,Nombre, Correo, Contraseña,IdRol FROM udfIniciarSesion(@Correo,@Contraseña)", conn);
+                comm.CommandType = CommandType.Text;
+                comm.Parameters.Add(new SqlParameter("@Correo", SqlDbType.VarChar, 50) { Value = usuario.Correo });
+                comm.Parameters.Add(new SqlParameter("@Contraseña", SqlDbType.VarChar, 100) { Value = usuario.Contraseña });
+
+
+                conn.Open();
+                dr = comm.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    result = new Usuario()
+                    {
+                        Id = int.Parse(dr["Id"].ToString()),
+                        Nombre = dr["Nombre"].ToString(),
+                        Correo = dr["Correo"].ToString(),
+                        Contraseña = dr["Contraseña"].ToString(),
+                        IdRol = int.Parse(dr["IdRol"].ToString())
+
+                    };
+                }
+
+                dr.Close();
+                conn.Close();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"No se pudo iniciar sesión", ex);
+            }
+            finally
+            {
+                try { if (comm != null) comm.Dispose(); }
+                catch { }
+                try { if (dr != null) dr.Dispose(); }
+                catch { }
+                try { if (conn != null) conn.Dispose(); }
+                catch { }
+
             }
         }
     }
